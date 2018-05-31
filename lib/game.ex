@@ -1,6 +1,6 @@
 defmodule IslandsEngine.Game do
   defstruct player1: :none, player2: :none
-  alias IslandsEngine.{Game, Player}
+  alias IslandsEngine.{Coordinate, Game, Player}
   use GenServer
 
   def start_link(name) when not is_nil name do
@@ -29,5 +29,17 @@ defmodule IslandsEngine.Game do
   def add_player(pid, name) when name != nil do
     GenServer.call(pid, {:add_player, name})
   end
+
+  def set_island_coordinates(pid, player, island, coordinates)
+    when is_atom player and is_atom island do
+    GenServer.call(pid, {:set_island_coordinates, player, island, coordinates})
+  end
+
+  def handle_call({:set_island_coordinates, player, island, coordinates}, _from, state) do
+    state
+    |> Map.get(player)
+    |> Player.set_island_coordinates(island, coordinates)
+    {:reply, :ok, state}
+    end
 
 end
