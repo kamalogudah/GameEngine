@@ -56,6 +56,14 @@ defmodule IslandsEngine.Game do
       GenServer.call(pid, {:guess, player, coordinate})
   end
 
+  def stop(pid) do
+    GenServer.cast(pid, :stop)
+  end
+
+  def handle_cast(:stop, state) do
+    {:stop, :normal, state}
+  end
+
   defp opponent(state, :player1) do
     state.player2
   end
