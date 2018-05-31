@@ -5,6 +5,7 @@
                         'Elixir.IslandsEngine.Application',
                         'Elixir.IslandsEngine.Board',
                         'Elixir.IslandsEngine.Coordinate',
+                        'Elixir.IslandsEngine.Game',
                         'Elixir.IslandsEngine.Island',
                         'Elixir.IslandsEngine.IslandSet',
                         'Elixir.IslandsEngine.Player']},
