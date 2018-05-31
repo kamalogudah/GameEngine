@@ -41,6 +41,11 @@ defmodule IslandsEngine.IslandSet do
     |> Island.forested?
   end
 
+  def all_forested?(island_set) do
+    islands = Agent.get(island_set, &(&1))
+    Enum.all?(keys(), fn key -> Island.forested?(Map.get(islands, key)) end)
+  end
+
   defp string_body(island_set) do
     Enum.reduce(keys(), "", fn key, acc ->
       island = Agent.get(island_set, &(Map.fetch!(&1, key)))
