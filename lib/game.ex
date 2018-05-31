@@ -26,7 +26,8 @@ defmodule IslandsEngine.Game do
     opponent = opponent(state, player)
     opponent_board = Player.get_board(opponent)
     response = Player.guess_coordinate(opponent_board, coordinate)
-    {:reply, response, state}
+    |> forest_check(opponent, coordinate)
+
   end
 
   def call_demo(game) do
@@ -60,5 +61,14 @@ defmodule IslandsEngine.Game do
 
   defp opponent(state, _player2) do
     state.player1
+  end
+
+  defp forest_check(:miss, _opponent, _coordinate) do
+    {:miss, :none}
+  end
+
+  defp forest_check(:hit, opponent, coordinate) do
+    island_key = Player.forested_island(opponent, coordinate)
+    {:hit, island_key}
   end
 end

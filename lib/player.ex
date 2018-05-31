@@ -46,6 +46,16 @@ defmodule IslandsEngine.Player do
     end
   end
 
+  def forested_island(opponent, coordinate) do
+    board = Player.get_board(opponent)
+    island_key = Board.coordinate_island(board, coordinate)
+    island_set = Player.get_island_set(opponent)
+    case IslandSet.forested?(island_set, island_key) do
+    true -> island_key
+    false -> :none
+    end
+  end
+
   defp convert_coordinates(board, coordinates) do
     Enum.map(coordinates, fn coord -> convert_coordinate(board, coord) end)
   end
