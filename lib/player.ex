@@ -38,6 +38,14 @@ defmodule IslandsEngine.Player do
     IslandSet.set_island_coordinates(island_set, island, new_coordinates)
   end
 
+  def guess_coordinate(opponent_board, coordinate) do
+    Board.guess_coordinate(opponent_board, coordinate)
+    case Board.coordinate_hit?(opponent_board, coordinate) do
+    true -> :hit
+    false -> :miss
+    end
+  end
+
   defp convert_coordinates(board, coordinates) do
     Enum.map(coordinates, fn coord -> convert_coordinate(board, coord) end)
   end
